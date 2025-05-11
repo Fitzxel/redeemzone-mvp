@@ -1,16 +1,16 @@
 import type { APIRoute } from 'astro'
 import { firestore } from '@/lib/firebase-admin/config'
-import { promises as fs } from 'fs'
-import { fileURLToPath } from 'url'
-import path from 'path'
+// import { promises as fs } from 'fs'
+// import { fileURLToPath } from 'url'
+// import path from 'path'
 
-const currentDir = path.dirname(fileURLToPath(import.meta.url))
+// const currentDir = path.dirname(fileURLToPath(import.meta.url))
 const db = firestore.collection('stores')
 
-type StoreCache = {
-  values: Store[]
-  timestamp: number
-}
+// type StoreCache = {
+//   values: Store[]
+//   timestamp: number
+// }
 
 export const GET: APIRoute = async ({ request }) => {
   try {
@@ -30,19 +30,20 @@ export const GET: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify(store), { status: 200 })
     } else {
       // get the store from the cache file
-      await fs.mkdir(path.join(currentDir, '.cache'), { recursive: true })
-      const cacheFilePath = path.join(currentDir, '.cache/stores.json')
-      const storesCache = await fs.readFile(cacheFilePath, 'utf-8')
-      .then((data) => JSON.parse(data))
-      .catch(() => ({
-        values: [] as Store[],
-        timestamp: 0,
-      })) as StoreCache
+      // await fs.mkdir(path.join(currentDir, '.cache'), { recursive: true })
+      // const cacheFilePath = path.join(currentDir, '.cache/stores.json')
+      // const storesCache = await fs.readFile(cacheFilePath, 'utf-8')
+      // .then((data) => JSON.parse(data))
+      // .catch(() => ({
+      //   values: [] as Store[],
+      //   timestamp: 0,
+      // })) as StoreCache
 
-      let stores = storesCache.values
+      // let stores = storesCache.values
+      let stores = [] as Store[]
 
-      if (storesCache.values.length === 0 || Date.now() - storesCache.timestamp > 24 * 60 * 60 * 1000 /* 24 hours */) {
-        console.log('no cache')
+      // if (stores.length === 0 || Date.now() - storesCache.timestamp > 24 * 60 * 60 * 1000 /* 24 hours */) {
+      if (stores.length === 0) {
         // get all stores
         const snapshot = await db.get()
         stores = snapshot.docs.map((doc) => ({
@@ -51,10 +52,10 @@ export const GET: APIRoute = async ({ request }) => {
         } as Store))
         
         // cache the stores
-        await fs.writeFile(cacheFilePath, JSON.stringify({
-          values: stores,
-          timestamp: Date.now(),
-        }))
+        // await fs.writeFile(cacheFilePath, JSON.stringify({
+        //   values: stores,
+        //   timestamp: Date.now(),
+        // }))
       }
   
       return new Response(JSON.stringify(stores), { status: 200 })
