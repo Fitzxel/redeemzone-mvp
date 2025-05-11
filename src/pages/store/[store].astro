@@ -1,0 +1,48 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import YourCoins from '@/components/YourCoins.tsx'
+
+const {
+  store,
+} = Astro.locals
+---
+
+<Layout>
+  {
+    store ? (
+      <main>
+        <header>
+          {/* banner */}
+          <div id="banner" class="w-full h-60 bg-card bg-cover bg-center bg-no-repeat" style={`background-image: url(${store.bannerUrl})`}>
+          </div>
+          {/* content */}
+          <div class="relative -top-12 flex flex-col items-center justify-center gap-4">
+            <img
+              src={store.iconUrl}
+              alt="store icon"
+              class="w-24 h-24 rounded-full border-2 border-border overflow-hidden"
+            />
+            <h1 class="text-4xl font-bold">
+              {store.name}
+            </h1>
+          </div>
+          <div class="flex justify-center">
+            <YourCoins client:only="react" store={store} />
+          </div>
+        </header>
+      </main>
+    ) : (
+      <div class="flex flex-col items-center justify-center gap-4 p-4">
+        <h1 class="text-4xl font-bold">
+          Store not found
+        </h1>
+      </div>
+    )
+  }
+</Layout>
+
+<style>
+  #banner {
+    mask-image: linear-gradient(to top, transparent, var(--color-background));
+  }
+</style>

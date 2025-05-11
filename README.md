@@ -1,48 +1,38 @@
-# Astro Starter Kit: Basics
+# [RedeemZone](https://redeemzone.vercel.app/)
 
-```sh
-npm create astro@latest -- --template basics
-```
+Tienda para streamers donde los espectadores canjean puntos de canal por recompensas reales.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+#
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Plataforma web que convierte los puntos de canal de Twitch en una moneda personalizable. Cada streamer tiene su propia tienda y su propia moneda, que los espectadores pueden ganar al canjear sus puntos y luego usar para obtener recompensas reales.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+✨ **Características principales:**
+- Tienda y moneda propia personalizable para el streamer.
+- Canjeo de puntos por monedas.
+- Monedas intercambiables por los productos en la tienda.
+- Servicio descentralizado: cada streamer se encarga de su tienda, productos, reclamos, entregas y la ejecución del servicio que realiza el canjeo de puntos por monedas.
 
-## 🚀 Project Structure
+## 🔐 Uso de Clerk
 
-Inside of your Astro project, you'll see the following folders and files:
+Autenticación con el servicio de [Clerk](https://clerk.dev/) usando Twitch como único proveedor, asegurando que el usuario que canjea los puntos y el que obtiene las monedas sea el mismo, a través de su ID brindada por Twitch.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### Datos y monedas
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Se utiliza Clerk para almacenar los datos personales de cada usuario y sus monedas para cada tienda (streamer) en la que hayan canjeado puntos.
 
-## 🧞 Commands
+### Protección de rutas
 
-All commands are run from the root of the project, from a terminal:
+Rutas protegidas con el middleware proporcionado por Clerk.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 🪙 Sistema de canjeo de puntos por monedas
 
-## 👀 Want to learn more?
+Desde el [Panel](https://redeemzone.vercel.app/panel), cada streamer debe inicializar el servicio que se encarga de transformar los canjeos hechos por puntos en monedas, que se entregarán al usuario coincidente mediante su ID de Twitch única, si este se ha registrado previamente en **RedeemZone**.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Al iniciarse el servicio, este listará los canjeos de monedas hechos y no completados, y escuchará nuevos canjeos en tiempo real mientras la página esté abierta.
+
+---
+
+🚀 **Desarrollo a futuro:**
+- [ ] Productos disponibles únicamente al estar en directo.
+- [ ] Descuentos en productos.
+- [ ] Alertas visuales al realizarse una compra.

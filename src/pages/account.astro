@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { Protect } from '@clerk/astro/components'
+import AccountTabs from '@/components/AccountTabs.tsx'
+
+const {
+  currentUser,
+} = Astro.locals
+
+const user = await currentUser()
+console.log(user)
+---
+
+<Layout>
+  <Protect>
+    <main class="pb-16">
+      <header class="p-8">
+        <div class="flex flex-col items-center gap-2">
+          <picture class="w-24 h-24 flex justify-center items-center rounded-full border-2 border-border overflow-hidden">
+            {
+              user?.hasImage && (
+                <img
+                  src={user.imageUrl}
+                  alt="user profile"
+                  class="w-24 h-24"
+                />
+              )
+            }
+          </picture>
+          <h1 class="text-xl font-bold">
+            {user?.firstName}
+          </h1>
+        </div>
+      </header>
+      <AccountTabs client:only="react" />
+    </main>
+  </Protect>
+</Layout>

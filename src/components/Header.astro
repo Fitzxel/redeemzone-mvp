@@ -1,0 +1,66 @@
+---
+import NavMenu from '@/components/NavMenu.tsx'
+import { Button, buttonVariants } from '@/components/ui/button.tsx'
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from '@clerk/astro/components'
+import StoreInput from '@/components/StoreInput.tsx'
+---
+
+<header class="relative h-14 text-white flex items-center justify-center px-4 border-b border-border">
+  <div class="absolute left-4">
+    <!-- logo -->
+    <a href="/" class="flex items-center gap-2">
+      <!-- <img
+        src="/logo.svg"
+        alt="logo"
+        class="h-6 w-auto"
+      /> -->
+      <span class="text-4xl">
+        🪙
+      </span>
+      <span class="sr-only">RedeemZone</span>
+    </a>
+  </div>
+  <div class="max-w-5xl w-full grid grid-cols-3 items-center">
+    <!-- left -->
+    <NavMenu
+      client:idle
+      pathname={Astro.url.pathname}
+      items={[
+        { name: 'Overview', href: '/' },
+        { name: 'About', href: '/about' },
+      ]}
+    />
+    <!-- middle search bar -->
+    <div class="flex items-center justify-center">
+      {
+        Astro.url.pathname !== '/' && (
+          <StoreInput client:idle />
+        )
+      }
+    </div>
+    <!-- right -->
+    <div class="justify-self-end flex items-center gap-2">
+      <SignedIn>
+        <NavMenu
+          client:idle
+          pathname={Astro.url.pathname}
+          items={[
+          { name: 'Streamer Panel', href: '/panel' },
+            { name: 'Account', href: '/account' },
+          ]}
+        />
+        <UserButton />
+      </SignedIn>
+      <SignedOut>
+        <SignInButton mode="modal" class={buttonVariants()}>
+          Sign In
+        </SignInButton>
+      </SignedOut>
+    </div>
+  </div>
+</header>
