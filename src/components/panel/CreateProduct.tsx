@@ -449,7 +449,7 @@ export default ({ store, product, onCreate, ...props }: Props) => {
                 type='submit'
                 className='bg-mango-400 hover:bg-mango-500'
               >
-                {isSubmitting && <Loader2 className='animate-spin' />}
+                {isSubmitting && <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />}
                 {product ? 'Editar producto' : 'Crear producto'}
               </Button>
             </DialogFooter>

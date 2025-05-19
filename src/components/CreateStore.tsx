@@ -21,7 +21,7 @@ export default ({ user }: { user: User }) => {
       disabled={isSubmitting}
       onClick={createStore}
     >
-      {isSubmitting && <Loader2 className='animate-spin' />}
+      {isSubmitting && <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />}
       Crear tienda
     </Button>
   )

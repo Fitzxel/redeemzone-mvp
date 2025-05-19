@@ -87,7 +87,7 @@ export default ({ store }: { store: Store }) => {
               disabled={isSubmitting}
             >
               {
-                isSubmitting && <Loader2 className='animate-spin' />
+                isSubmitting && <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />
               }
               Guardar
             </Button>

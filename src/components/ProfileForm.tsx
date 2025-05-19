@@ -280,7 +280,7 @@ export default () => {
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className='animate-spin' />
+                    <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />
                     Guardando...
                   </>
                 ) : (

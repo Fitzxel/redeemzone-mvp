@@ -146,7 +146,7 @@ export default ({ store, product, onBuy, ...props }: Props) => {
               disabled={!canBuy || isSubmitting}
               onClick={buyProduct}
             >
-              {isSubmitting && <Loader2 className='animate-spin' />}
+              {isSubmitting && <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />}
               Comprar
             </Button>
           }

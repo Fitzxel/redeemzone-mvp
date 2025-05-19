@@ -174,7 +174,7 @@ export default ({ onAdd, user, rewards, twToken }: Props) => {
               onClick={() => setRewards(rewardsToAdd)}
             >
               {
-                isSubmitting && <Loader2 className='animate-spin' />
+                isSubmitting && <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite' />
               }
               Listo
             </Button>

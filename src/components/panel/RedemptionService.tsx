@@ -216,7 +216,7 @@ export default ({ user }: Props) => {
       {
         loading && !error &&
         <div className='h-full flex justify-center items-center'>
-          <Loader2 className='animate-spin w-16 h-16' />
+          <Loader2 className='animate-spin-clockwise animate-iteration-count-infinite w-16 h-16' />
         </div>
       }
       {
