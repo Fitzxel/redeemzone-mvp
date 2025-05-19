@@ -20,13 +20,17 @@ Autenticación con el servicio de [Clerk](https://clerk.dev/) usando Twitch como
 
 Se utiliza Clerk para almacenar los datos personales de cada usuario y sus monedas para cada tienda (streamer) en la que hayan canjeado puntos.
 
+### Cuentas externas
+
+Se utiliza los datos proporcionados por Clerk para identificar a los usuarios que se han registrado en RedeemZone, y sus datos relacionados con Twitch, como su nombre de usuario y foto para completar su perfil; además de utilizar su nombre de usuario para entregar las monedas canjeadas al usuario correspondiente.
+
 ### Protección de rutas
 
 Rutas protegidas con el middleware proporcionado por Clerk.
 
 ## 🪙 Sistema de canjeo de puntos por monedas
 
-Desde el [Panel](https://redeemzone.vercel.app/panel), cada streamer debe inicializar el servicio que se encarga de transformar los canjeos hechos por puntos en monedas, que se entregarán al usuario coincidente mediante su ID de Twitch única, si este se ha registrado previamente en **RedeemZone**.
+Desde el [Panel](https://redeemzone.vercel.app/panel), cada streamer debe inicializar el servicio que se encarga de transformar los canjeos hechos por puntos en monedas, que se entregarán al usuario coincidente mediante su ~~ID de Twitch única~~ *(por ahora utilizando el nombre de usuario)*, si este se ha registrado previamente en **RedeemZone**.
 
 Al iniciarse el servicio, este listará los canjeos de monedas hechos y no completados, y escuchará nuevos canjeos en tiempo real mientras la página esté abierta.
 
