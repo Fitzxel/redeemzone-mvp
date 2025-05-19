@@ -5,17 +5,16 @@ const ERROR = {
   UNAUTHORIZED: Symbol('UNAUTHORIZED'),
 }
 
+const clerkClient = createClerkClient({
+  secretKey: import.meta.env.CLERK_SECRET_KEY,
+})
+
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const userId = await locals.currentUser().then((user) => user?.id)
     if (!userId) throw ERROR.UNAUTHORIZED
 
     const data = await request.json()
-
-    // create a clerk client
-    const clerkClient = createClerkClient({
-      secretKey: import.meta.env.CLERK_SECRET_KEY,
-    })
 
     // set private metadata for the user
     await clerkClient.users.updateUserMetadata(userId, {
@@ -30,7 +29,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (err === ERROR.UNAUTHORIZED) {
       return new Response('Unauthorized', { status: 401 })
     }
-    return new Response('Invalid request', { status: 400 })
+    return new Response('Something went wrong', { status: 500 })
   }
 }
 
@@ -38,11 +37,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const userId = await locals.currentUser().then((user) => user?.id)
     if (!userId) throw ERROR.UNAUTHORIZED
-
-    // create a clerk client
-    const clerkClient = createClerkClient({
-      secretKey: import.meta.env.CLERK_SECRET_KEY,
-    })
 
     // get the user's private metadata
     const user = await clerkClient.users.getUser(userId)
@@ -54,6 +48,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (err === ERROR.UNAUTHORIZED) {
       return new Response('Unauthorized', { status: 401 })
     }
-    return new Response('Invalid request', { status: 400 })
+    return new Response('Something went wrong', { status: 500 })
   }
 }

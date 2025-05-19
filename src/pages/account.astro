@@ -3,12 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import { Protect } from '@clerk/astro/components'
 import AccountTabs from '@/components/AccountTabs.tsx'
 
-const {
-  currentUser,
-} = Astro.locals
-
-const user = await currentUser()
-console.log(user)
+const user = await Astro.locals.currentUser()
 ---
 
 <Layout>

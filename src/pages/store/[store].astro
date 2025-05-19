@@ -1,10 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import YourCoins from '@/components/YourCoins.tsx'
+import ProductCard from '@/components/ProductCard.tsx'
 
 const {
   store,
+  currentUser,
 } = Astro.locals
+
+const user = await currentUser() as unknown as User
+const products: Product[] = store ? await fetch(`${Astro.url.origin}/api/product?storeId=${store.id}`).then(res => res.json()) : []
 ---
 
 <Layout>
@@ -27,9 +32,16 @@ const {
             </h1>
           </div>
           <div class="flex justify-center">
-            <YourCoins client:only="react" store={store} />
+            <YourCoins client:idle store={store} userLegacy={user} />
           </div>
         </header>
+        <div class='px-12 py-6 flex flex-wrap justify-center gap-4'>
+          {
+            products.map((product) => (
+              <ProductCard client:idle userLegacy={user} store={store} productLegacy={product} fromStore />
+            ))
+          }
+        </div>
       </main>
     ) : (
       <div class="flex flex-col items-center justify-center gap-4 p-4">

@@ -1,0 +1,13 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import RedemptionService from '@/components/panel/RedemptionService.tsx'
+
+const user = await Astro.locals.currentUser() as unknown as User
+---
+
+<Layout
+  header={false}
+  noIndex
+>
+  <RedemptionService client:idle user={user} />
+</Layout>

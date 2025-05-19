@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@plugin "@midudev/tailwind-animations";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -51,6 +53,8 @@
   --color-mango-800: #8c3414;
   --color-mango-900: #732b14;
   --color-mango-950: #421406;
+
+  --font-zendots: 'ZenDots', sans-serif;
 }
 
 :root {

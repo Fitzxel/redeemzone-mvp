@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Panel.astro'
+import ExchangesManager from '@/components/panel/ExchangesManager.tsx'
+import OpenListenerService from '@/components/panel/OpenListenerService.tsx'
+
+const user = await Astro.locals.currentUser() as unknown as User
+const storeId = user?.publicMetadata?.yourStoreId
+---
+
+<Layout>
+  <div class="p-6 flex-1 grid grid-cols-2 gap-8">
+    <ExchangesManager client:idle storeId={storeId} />
+    <OpenListenerService client:idle user={user} />
+  </div>
+</Layout>

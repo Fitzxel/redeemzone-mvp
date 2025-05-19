@@ -23,7 +23,7 @@ export default ({ pathname, items }: Props) => {
             <NavigationMenuItem key={item.name}>
               <NavigationMenuLink
                 href={item.href}
-                data-active={pathname === item.href}
+                data-active={item.href === '/' ? pathname === item.href : pathname.startsWith(item.href)}
                 className={navigationMenuTriggerStyle()}
               >
                 {item.name}

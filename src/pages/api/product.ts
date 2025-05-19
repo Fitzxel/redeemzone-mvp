@@ -16,8 +16,10 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json()
 
     // create or update a product
-    const docRef = db.doc(productId)
+    const docRef = productId ? db.doc(productId) : db.doc()
     const docSnapshot = await docRef.get()
+
+    if (data.imageUrl) data.imageUrl = data.imageUrl.replace('[id]', docRef.id)
 
     if (docSnapshot.exists) {
       await docRef.update(data)
@@ -36,12 +38,14 @@ export const POST: APIRoute = async ({ request }) => {
     if (err === ERROR.MISSING_PRODUCT_ID) {
       return new Response('Missing product id', { status: 400 })
     }
-    return new Response('Invalid request', { status: 400 })
+    return new Response('Something went wrong', { status: 500 })
   }
 }
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
+    const user = await locals.currentUser()
+
     const url = new URL(request.url)
 
     // get the product id from the search params
@@ -63,7 +67,7 @@ export const GET: APIRoute = async ({ request }) => {
       const products = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      } as Product))
+      } as Product)).filter((product) => storeId === user?.publicMetadata?.yourStoreId ? true : product.inStore)
   
       return new Response(JSON.stringify(products), { status: 200 })
     } else {
@@ -74,6 +78,6 @@ export const GET: APIRoute = async ({ request }) => {
     if (err === ERROR.MISSING_PRODUCT_ID_OR_STORE_ID) {
       return new Response('Missing product or store id', { status: 400 })
     }
-    return new Response('Invalid request', { status: 400 })
+    return new Response('Something went wrong', { status: 500 })
   }
 }

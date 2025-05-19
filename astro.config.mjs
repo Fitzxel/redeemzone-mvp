@@ -25,4 +25,7 @@ export default defineConfig({
   })],
   adapter: vercel(),
   output: 'server',
+  redirects: {
+    '/panel': '/panel/exchanges',
+  },
 });

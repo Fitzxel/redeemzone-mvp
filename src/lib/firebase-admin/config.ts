@@ -12,11 +12,9 @@ if (!getApps().length) initializeApp({
 })
 
 const firestore = getFirestore()
-if (!getApps().length) {
-  firestore.settings({
-    ignoreUndefinedProperties: true
-  })
-}
+firestore.settings({
+  ignoreUndefinedProperties: true
+})
 
 export {
   firestore

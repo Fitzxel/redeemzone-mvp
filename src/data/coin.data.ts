@@ -1,0 +1,1 @@
+export const COIN_VALUE_PER_TWITCH_POINT = 1000

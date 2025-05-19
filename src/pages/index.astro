@@ -1,23 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import StoreInput from '@/components/StoreInput.tsx'
+import ProductCard from '@/components/overview/ProductCard.tsx'
+import FlipText from '@/components/FlipText.tsx'
+import HowWorks from '@/components/overview/HowWorks.tsx'
 ---
 
 <Layout>
 	<main>
-		<section class="flex flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-			<h1 class="text-4xl font-bold">
-				Welcome to RedeemZone
+		<div class="flex justify-center">
+			<div class="hidden md:block absolute -z-10 w-full max-w-7xl h-screen">
+				<ProductCard className='absolute top-10 left-20 scale-75' />
+				<ProductCard className='absolute top-8 right-2.5 scale-85' />
+				<ProductCard className='absolute top-1/2 left-1/5 scale-70' />
+				<ProductCard className='absolute top-1/2 right-1/4 scale-90' />
+			</div>
+		</div>
+		<section class="h-screen flex flex-col items-center px-4 pt-16 text-center">
+			<h1 class="text-3xl font-bold text-muted-foreground">
+				Bienvenido a
+				<br />
+				<span class='text-6xl font-zendots text-mango-400'>
+					RedeemZone
+				</span>
 			</h1>
-			<p class="text-xl">
-				A store for streamers where viewers redeem channel points for rewards.
-			</p>
-			<div class="min-w-sm mt-10 flex flex-col gap-2">
-				<p class="text-lg text-muted-foreground">
-					Search an streamer store
+			<FlipText
+				client:load
+				texts={[
+					'Una tienda para cada streamer',
+					'Donde los espectadores pueden canjear sus puntos de canal por recompensas reales',
+				]}
+				className='text-lg font-bold'
+			/>
+			<div class="min-w-sm mt-10 flex flex-col gap-0.5">
+				<p class="text-muted-foreground">
+					Busca una tienda de streamer
 				</p>
 				<StoreInput client:idle />
 			</div>
+		</section>
+		<section class="h-screen flex flex-col items-center px-4 pt-16 text-center">
+			<h2 class="mb-10 text-4xl font-bold text-muted-foreground">
+				¿Como funciona?
+			</h2>
+			<p class="mb-2 text-lg">
+				Selecciona tu caso
+			</p>
+			<HowWorks client:idle />
 		</section>
 	</main>
 </Layout>

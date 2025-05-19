@@ -1,0 +1,66 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { Protect } from '@clerk/astro/components'
+import CreateStore from '@/components/CreateStore.tsx'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+
+const user = await Astro.locals.currentUser() as unknown as User
+const storeId = user?.publicMetadata?.yourStoreId
+
+const asideItems = [
+  {
+    title: 'Canjeos',
+    href: '/panel/exchanges',
+  },
+  {
+    title: 'Tienda',
+    href: '/panel/store',
+  },
+  {
+    title: 'Productos',
+    href: '/panel/products',
+  }
+]
+---
+
+<Layout>
+  <Protect>
+    {
+      storeId ?
+      <main class="flex">
+        <aside class="sticky top-14 w-56 h-[calc(100dvh-3.5rem)] pt-4 px-6 border-r border-border">
+          <h1 class="mb-4 text-lg font-bold">
+            Streamer Panel
+          </h1>
+          <ul class="flex flex-col gap-0.5">
+            {
+              asideItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class={cn(
+                      buttonVariants({ variant: 'ghost' }),
+                      'w-full justify-start data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground'
+                    )}
+                    data-active={Astro.url.pathname === item.href}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </aside>
+        <slot />
+      </main>
+      :
+      <main class="flex-1 pt-24 flex flex-col items-center gap-10">
+        <h1 class="text-2xl font-bold">
+          Crear una tienda para que tus espectadores puedan reclamar recompensas
+        </h1>
+        <CreateStore client:idle user={user} />
+      </main>
+    }
+  </Protect>
+</Layout>

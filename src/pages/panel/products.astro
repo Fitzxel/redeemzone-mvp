@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/Panel.astro'
+import ProductsManager from '@/components/panel/ProductsManager.tsx'
+
+const user = await Astro.locals.currentUser() as unknown as User
+const storeId = user?.publicMetadata?.yourStoreId
+const store = await fetch(`${Astro.url.origin}/api/store?storeId=${storeId}`).then(res => res.json())
+---
+
+<Layout>
+  <div class="p-6 flex-1 flex flex-col gap-8">
+    <ProductsManager client:idle userLegacy={user} store={store} />
+  </div>
+</Layout>
