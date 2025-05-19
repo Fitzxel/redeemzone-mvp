@@ -14,7 +14,7 @@ Plataforma web que convierte los puntos de canal de Twitch en una moneda persona
 
 ## 🔐 Uso de Clerk
 
-Autenticación con el servicio de [Clerk](https://clerk.dev/) usando Twitch como único proveedor, asegurando que el usuario que canjea los puntos y el que obtiene las monedas sea el mismo, a través de su ID brindada por Twitch.
+Autenticación con el servicio de [Clerk](https://clerk.dev/) usando Twitch como único proveedor, asegurando que el usuario que canjea los puntos y el que obtiene las monedas sea el mismo, a través de su ~~ID~~ *(por ahora utilizando el nombre de usuario)* brindada por Twitch.
 
 ### Datos y monedas
 
