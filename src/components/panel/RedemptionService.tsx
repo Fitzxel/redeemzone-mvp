@@ -15,33 +15,37 @@ export default ({ user }: Props) => {
 
   const [redemptionsEvents, setRedemptionsEvents] = useState([] as RedemptionEvent[])
 
-  const giveCoins = async (twToken: string, event: RedemptionEvent) => {
-    // give coins to user
-    const res = await fetch('/api/coins', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: event.user_login,
-        coins: event.reward.cost*COIN_VALUE_PER_TWITCH_POINT,
-        storeId: user.publicMetadata?.yourStoreId,
-      }),
-    })
-    if (!res.ok && res.status !== 404) throw new Error(res.statusText)
-    if (res.status === 404) return // user not found, probably not registered
+  const giveCoins = (twToken: string, event: RedemptionEvent) => {
+    return new Promise(async (resolve, reject) => {
+      // give coins to user
+      const res = await fetch('/api/coins', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: event.user_login,
+          coins: event.reward.cost*COIN_VALUE_PER_TWITCH_POINT,
+          storeId: user.publicMetadata?.yourStoreId,
+        }),
+      })
+      if (!res.ok && res.status !== 404) reject(new Error(res.statusText))
+      if (res.status === 404) reject(new Error('user not found')) // user not found, probably not registered
 
-    // update redemtion status
-    // @ts-ignore
-    const update = await fetch(`https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?broadcaster_id=${user.externalAccounts[0].externalId}&reward_id=${event.reward.id}&id=${event.id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${twToken}`,
-        'Client-Id': import.meta.env.PUBLIC_TWITCH_CLIENT_ID,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        status: 'FULFILLED',
-      }),
+      // update redemtion status
+      // @ts-ignore
+      const update = await fetch(`https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?broadcaster_id=${user.externalAccounts[0].externalId}&reward_id=${event.reward.id}&id=${event.id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${twToken}`,
+          'Client-Id': import.meta.env.PUBLIC_TWITCH_CLIENT_ID,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          status: 'FULFILLED',
+        }),
+      })
+      if (!update.ok && update.status !== 404) reject(new Error(update.statusText))
+
+      resolve(update)
     })
-    if (!update.ok && update.status !== 404) throw new Error(update.statusText)
   }
 
   const init = async () => {
@@ -150,8 +154,9 @@ export default ({ user }: Props) => {
           if (!isSettedReward) return
           console.log(event)
 
-          await giveCoins(twToken, event)
-          setRedemptionsEvents(events => [...events, event])
+          giveCoins(twToken, event).then(() => {
+            setRedemptionsEvents(events => [...events, event])
+          })
         }
       })
 
