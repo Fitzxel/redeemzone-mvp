@@ -34,8 +34,6 @@ Desde el [Panel](https://redeemzone.vercel.app/panel), cada streamer debe inicia
 
 Al iniciarse el servicio, este listará los canjeos de monedas hechos y no completados, y escuchará nuevos canjeos en tiempo real mientras la página esté abierta.
 
----
-
 ## 🧑‍💻 Stack utilizado
 - [Astro](https://astro.build/) como framework principal.
 - [React](https://reactjs.org/) como librería de UI.
@@ -60,3 +58,8 @@ Al iniciarse el servicio, este listará los canjeos de monedas hechos y no compl
 - [ ] Recuento de visitas a la tienda.
 - [ ] Funciones de eliminación de tienda, productos, canjeos, cuenta.
 - [ ] Personalización del valor de la moneda.
+
+---
+
+🫂 **Agradecimientos**
+- [PrimeIsWanted](https://x.com/primeiswanted) por apoyar con su cuenta de Twitch para los testings.
