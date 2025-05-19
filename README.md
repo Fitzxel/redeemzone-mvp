@@ -36,7 +36,27 @@ Al iniciarse el servicio, este listará los canjeos de monedas hechos y no compl
 
 ---
 
+## 🧑‍💻 Stack utilizado
+- [Astro](https://astro.build/) como framework principal.
+- [React](https://reactjs.org/) como librería de UI.
+- [Shadcn](https://ui.shadcn.com/) como librería de componentes.
+- [Tailwind CSS](https://tailwindcss.com/) como framework de CSS.
+- [Clerk](https://clerk.dev/) como servicio de autenticación.
+- [Firebase](https://firebase.google.com/) como servicio de base de datos.
+- [Vercel](https://vercel.com/) como plataforma de hosting.
+- [Cloudflare R2](https://www.cloudflare.com/products/r2/) como CDN.
+- [Lucide](https://lucide.dev/) como librería de iconos.
+- [Tailwind Animations by Midudev](https://github.com/midudev/tailwind-animations) como librería de animaciones.
+- [React Hook Form](https://react-hook-form.com/) + [Zod](https://github.com/colinhacks/zod) + [Zod Resolvers](https://github.com/react-hook-form/resolvers) como librería de validación de formularios.
+
+---
+
 🚀 **Desarrollo a futuro:**
+- [ ] Completar tratamiento de las propiedades de los productos.
 - [ ] Productos disponibles únicamente al estar en directo.
 - [ ] Descuentos en productos.
 - [ ] Alertas visuales al realizarse una compra.
+- [ ] Ranking de usuarios por monedas en tiendas.
+- [ ] Recuento de visitas a la tienda.
+- [ ] Funciones de eliminación de tienda, productos, canjeos, cuenta.
+- [ ] Personalización del valor de la moneda.
