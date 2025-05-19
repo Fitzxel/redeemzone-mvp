@@ -31,7 +31,7 @@ export default ({ storeId }: { storeId: string }) => {
   }, [])
 
   return (
-    <Card className='w-full'>
+    <Card className='w-full max-h-[calc(100vh-56px-48px)] pb-0 gap-3'>
       <CardHeader className='space-y-1'>
         <CardTitle className='text-2xl font-bold flex justify-between'>
           Canjes
@@ -46,31 +46,29 @@ export default ({ storeId }: { storeId: string }) => {
         <CardDescription>
           Administra los canjes que has recibido.
         </CardDescription>
+        <Separator />
       </CardHeader>
-      <CardContent>
-        <div className='space-y-4'>
-          <Separator />
-          {
-            loading && (
-              <>
-                <Skeleton className='w-full h-24 rounded-md' />
-                <Skeleton className='w-full h-24 rounded-md' />
-                <Skeleton className='w-full h-24 rounded-md' />
-              </>
-            )
-          }
-          {
-            !loading && exchanges.map((exchange) => (
-              <ExchangeCard key={exchange.id} exchange={exchange} />
-            ))
-          }
-          {
-            !loading && exchanges.length === 0 &&
-            <div className='text-center text-muted-foreground'>
-              No tienes canjes
-            </div>
-          }
-        </div>
+      <CardContent className='space-y-4 pb-6 overflow-auto'>
+        {
+          loading && (
+            <>
+              <Skeleton className='w-full h-24 rounded-md' />
+              <Skeleton className='w-full h-24 rounded-md' />
+              <Skeleton className='w-full h-24 rounded-md' />
+            </>
+          )
+        }
+        {
+          !loading && exchanges.map((exchange) => (
+            <ExchangeCard key={exchange.id} exchange={exchange} />
+          ))
+        }
+        {
+          !loading && exchanges.length === 0 &&
+          <div className='text-center text-muted-foreground'>
+            No tienes canjes
+          </div>
+        }
       </CardContent>
     </Card>
   )

@@ -71,7 +71,7 @@ export default ({ user }: { user: User }) => {
   const value_text = `${COIN_VALUE_PER_TWITCH_POINT} puntos`
   
   return (
-    <Card className='w-full'>
+    <Card className='w-full max-h-[calc(100vh-56px-48px)] pb-0 gap-3'>
       <CardHeader className='space-y-1'>
         <CardTitle className='text-2xl font-bold'>
           Servicio de puntos x monedas
@@ -79,51 +79,49 @@ export default ({ user }: { user: User }) => {
         <CardDescription>
           Ejecutar servicio para que los espectadores canjeen sus puntos por monedas.
         </CardDescription>
+        {
+          isValid && twToken &&
+          <div className='flex justify-between'>
+            <div className='flex gap-1'>
+              <Label>
+                Valor de la moneda:
+              </Label>
+              <div
+                className='relative'
+                title={`Valor de la moneda: ${value_text}`}
+              >
+                <Lock className='absolute left-3 top-2.5 h-4 w-4 text-muted-foreground' />
+                <Input
+                  disabled
+                  value={`${value_text}`}
+                  className='pl-10'
+                  style={{
+                    width: `calc(0.75rem + 2.5rem + ${value_text.length}ch)`,
+                  }}
+                />
+              </div>
+            </div>
+            <Button
+              onClick={() => {
+                if (servicePage && !servicePage.closed) servicePage.focus()
+                else openListenerService()
+              }}
+            >
+              <SquareArrowOutUpRight />
+              Iniciar servicio
+            </Button>
+          </div>
+        }
+        <Separator />
       </CardHeader>
-      <CardContent className='space-y-4'>
+      <CardContent className='space-y-4 pb-6 overflow-auto'>
         {
           checking ?
-          <>
-            <Separator />
-            <p className='text-center text-muted-foreground'>
-              Verificando...
-            </p>
-          </> :
+          <p className='text-center text-muted-foreground'>
+            Verificando...
+          </p> :
           isValid && twToken ?
-          <>
-            <div className='flex justify-between'>
-              <div className='flex gap-1'>
-                <Label>
-                  Valor de la moneda:
-                </Label>
-                <div
-                  className='relative'
-                  title={`Valor de la moneda: ${value_text}`}
-                >
-                  <Lock className='absolute left-3 top-2.5 h-4 w-4 text-muted-foreground' />
-                  <Input
-                    disabled
-                    value={`${value_text}`}
-                    className='pl-10'
-                    style={{
-                      width: `calc(0.75rem + 2.5rem + ${value_text.length}ch)`,
-                    }}
-                  />
-                </div>
-              </div>
-              <Button
-                onClick={() => {
-                  if (servicePage && !servicePage.closed) servicePage.focus()
-                  else openListenerService()
-                }}
-              >
-                <SquareArrowOutUpRight />
-                Iniciar servicio
-              </Button>
-            </div>
-            <Separator />
-            <Rewards user={user} twToken={twToken} />
-          </> :
+          <Rewards user={user} twToken={twToken} /> :
           <div className='flex justify-center'>
             <Button
               onClick={() => requestNewTwToken()}
