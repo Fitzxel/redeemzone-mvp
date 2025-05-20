@@ -3,6 +3,7 @@ import { firestore } from './lib/firebase-admin/config'
 
 const isProtectedRoute = createRouteMatcher([
   '/panel(.*)',
+  '/account',
 ])
 
 const db = firestore.collection('stores')
