@@ -33,7 +33,7 @@ export default ({
   }, [texts, interval])
 
   return (
-    <div className={`relative w-full h-10 overflow-hidden ${className}`}>
+    <div className={`relative w-full h-10 overflow-hidden animate-fade-in-up ${className}`}>
       <div
         className={`absolute w-full transition-all duration-800 ${
           isFlipping ? 'opacity-0 -translate-y-full transform-gpu rotateX-90' : 'opacity-100'

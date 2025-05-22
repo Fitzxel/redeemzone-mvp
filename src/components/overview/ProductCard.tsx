@@ -83,7 +83,10 @@ export default ({ className }: { className?: string }) => {
           </CardDescription>
         </CardContent>
         <CardFooter className='px-3 flex-col gap-2'>
-          <Button className='w-full text-sm font-bold bg-green-600 hover:bg-green-700'>
+          <Button
+            tabIndex={-1}
+            className='w-full text-sm font-bold bg-green-600 hover:bg-green-700'
+          >
             Comprar
           </Button>
         </CardFooter>

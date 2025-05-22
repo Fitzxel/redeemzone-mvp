@@ -8,8 +8,8 @@ import HowWorks from '@/components/overview/HowWorks.tsx'
 
 <Layout>
 	<main>
-		<div class="flex justify-center">
-			<div class="hidden md:block absolute -z-10 w-full max-w-7xl h-screen">
+		<div class="flex justify-center pointer-events-none">
+			<div class="hidden md:block absolute -z-10 w-full max-w-7xl h-screen animate-zoom-in">
 				<ProductCard className='absolute top-10 left-20 scale-75' />
 				<ProductCard className='absolute top-8 right-2.5 scale-85' />
 				<ProductCard className='absolute top-1/2 left-1/5 scale-70' />
@@ -36,7 +36,7 @@ import HowWorks from '@/components/overview/HowWorks.tsx'
 				<p class="text-muted-foreground">
 					Busca una tienda de streamer
 				</p>
-				<StoreInput client:idle />
+				<StoreInput client:idle closeOnScroll />
 			</div>
 		</section>
 		<section class="h-screen flex flex-col items-center px-4 pt-16 text-center">

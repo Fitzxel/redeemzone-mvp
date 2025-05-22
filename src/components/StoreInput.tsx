@@ -3,7 +3,12 @@ import { Input } from '@/components/ui/input.tsx'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 
-export default ({ className, ...props }: any) => {
+interface Props {
+  className?: string
+  closeOnScroll?: boolean
+}
+
+export default ({ className, closeOnScroll, ...props }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState('')
   const [focused, setFocused] = useState(false)
@@ -29,15 +34,28 @@ export default ({ className, ...props }: any) => {
       .sort((a, b) => b.views - a.views)
       .slice(0, 5)
   }, [value, stores])
+  const [clickItem, setClickItem] = useState(false)
 
   useEffect(() => {
+    let tabNavigation = false
+
     const keyEvent = (e: KeyboardEvent) => {
       if ((e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey)) {
         e.preventDefault()
         inputRef.current?.focus()
       }
+      if (e.key === 'Tab') {
+        tabNavigation = true
+      }
+    }
+    const onScroll = () => {
+      if (closeOnScroll && !tabNavigation) {
+        inputRef.current?.blur()
+        setFocused(false)
+      }
     }
     document.addEventListener('keydown', keyEvent);
+    window.addEventListener('scroll', onScroll);
 
     (async () => {
       const res = await fetch('/api/store')
@@ -47,6 +65,7 @@ export default ({ className, ...props }: any) => {
 
     return () => {
       document.removeEventListener('keydown', keyEvent)
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
 
@@ -116,8 +135,9 @@ export default ({ className, ...props }: any) => {
                 'h-auto px-4 py-3 flex justify-start items-center gap-2 text-sm rounded-none',
                 i === listIndex && 'bg-accent text-accent-foreground dark:bg-accent/50'
               )}
-              tabIndex={0}
-              onClick={() => setFocused(false)}
+              tabIndex={-1}
+              onMouseDown={() => setClickItem(true)}
+              onMouseUp={() => setClickItem(false)}
             >
               <img
                 src={store.iconUrl}
@@ -145,6 +165,7 @@ export default ({ className, ...props }: any) => {
           }
         }}
         onFocus={() => setFocused(true)}
+        onBlur={() => !clickItem && setFocused(false)}
         autoComplete='off'
         autoCorrect='off'
         className={cn(
