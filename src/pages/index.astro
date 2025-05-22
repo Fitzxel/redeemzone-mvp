@@ -16,11 +16,11 @@ import HowWorks from '@/components/overview/HowWorks.tsx'
 				<ProductCard className='absolute top-1/2 right-1/4 scale-90' />
 			</div>
 		</div>
-		<section class="h-screen flex flex-col items-center px-4 pt-16 text-center">
-			<h1 class="text-3xl font-bold text-muted-foreground">
+		<section class="h-screen flex flex-col items-center px-6 pt-16 text-center">
+			<h1 class="text-xl md:text-3xl font-bold text-muted-foreground">
 				Bienvenido a
 				<br />
-				<span class='text-6xl font-zendots text-mango-400'>
+				<span class='text-4xl md:text-6xl font-zendots text-mango-400'>
 					RedeemZone
 				</span>
 			</h1>
@@ -30,20 +30,20 @@ import HowWorks from '@/components/overview/HowWorks.tsx'
 					'Una tienda para cada streamer',
 					'Donde los espectadores pueden canjear sus puntos de canal por recompensas reales',
 				]}
-				className='text-lg font-bold'
+				className='text-base md:text-lg font-bold h-20 md:h-10'
 			/>
-			<div class="min-w-sm mt-10 flex flex-col gap-0.5">
+			<div class="md:w-96 mt-10 flex flex-col gap-0.5">
 				<p class="text-muted-foreground">
 					Busca una tienda de streamer
 				</p>
 				<StoreInput client:idle closeOnScroll />
 			</div>
 		</section>
-		<section class="h-screen flex flex-col items-center px-4 pt-16 text-center">
-			<h2 class="mb-10 text-4xl font-bold text-muted-foreground">
+		<section class="h-screen flex flex-col items-center px-6 pt-16 text-center">
+			<h2 class="mb-10 text-2xl md:text-3xl lg:text-4xl font-bold text-muted-foreground">
 				¿Como funciona?
 			</h2>
-			<p class="mb-2 text-lg">
+			<p class="mb-2 text-base lg:text-lg">
 				Selecciona tu caso
 			</p>
 			<HowWorks client:idle />

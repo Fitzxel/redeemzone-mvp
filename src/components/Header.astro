@@ -1,6 +1,6 @@
 ---
 import NavMenu from '@/components/NavMenu.tsx'
-import { Button, buttonVariants } from '@/components/ui/button.tsx'
+import { buttonVariants } from '@/components/ui/button.tsx'
 import {
   SignedIn,
   SignedOut,
@@ -8,51 +8,44 @@ import {
   UserButton,
 } from '@clerk/astro/components'
 import StoreInput from '@/components/StoreInput.tsx'
+import MobileNav from '@/components/MobileNav.tsx'
+import { NAV_ITEMS, NAV_ITEMS_ACCOUNT } from '@/data/nav.data'
 ---
 
-<header class="sticky top-0 z-50 min-h-14 h-14 text-white flex items-center justify-center px-4 border-b border-border bg-background">
-  <div class="absolute left-4">
-    <!-- logo -->
-    <a href="/" class="flex items-center gap-2">
-      <!-- <img
-        src="/logo.svg"
-        alt="logo"
-        class="h-6 w-auto"
-      /> -->
-      <span class="text-4xl">
-        🪙
-      </span>
-      <span class="sr-only">RedeemZone</span>
-    </a>
-  </div>
+<header class="sticky top-0 z-50 min-h-14 h-14 text-white px-4 flex justify-center border-b border-border bg-background">
   <div class="max-w-5xl w-full grid grid-cols-3 items-center">
-    <!-- left -->
-    <NavMenu
-      client:idle
-      pathname={Astro.url.pathname}
-      items={[
-        { name: 'Overview', href: '/' },
-        { name: 'About', href: '#' },
-      ]}
-    />
-    <!-- middle search bar -->
+    <div>
+      <!-- left -->
+      <MobileNav client:load />
+      <a href="/" class="flex items-center gap-2">
+        <!-- <img
+          src="/logo.svg"
+          alt="logo"
+          class="h-6 w-auto"
+        /> -->
+        <span class="sr-only">RedeemZone</span>
+      </a>
+      <NavMenu
+        client:idle
+        pathname={Astro.url.pathname}
+        items={NAV_ITEMS}
+      />
+    </div>
     <div class="flex items-center justify-center">
+      <!-- middle search bar -->
       {
         Astro.url.pathname !== '/' && (
-          <StoreInput client:idle />
+          <StoreInput client:idle overlayMode />
         )
       }
     </div>
-    <!-- right -->
     <div class="justify-self-end flex items-center gap-2">
+      <!-- right -->
       <SignedIn>
         <NavMenu
           client:idle
           pathname={Astro.url.pathname}
-          items={[
-          { name: 'Streamer Panel', href: '/panel' },
-            { name: 'Account', href: '/account' },
-          ]}
+          items={NAV_ITEMS_ACCOUNT}
         />
         <UserButton />
       </SignedIn>

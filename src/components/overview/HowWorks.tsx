@@ -1,9 +1,15 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs.tsx'
 
+const H3 = ({ children }: { children: React.ReactNode }) => (
+  <h3 className='mb-2 text-lg xl:text-2xl font-bold'>
+    {children}
+  </h3>
+)
+
 export default () => {
   return (
     <Tabs defaultValue='redeem' className='w-full'>
-      <TabsList className='w-full max-w-3xl mx-auto'>
+      <TabsList className='w-full max-w-3xl h-auto mx-auto flex-col md:flex-row'>
         <TabsTrigger value='streamer'>
           Soy streamer y quiero crear mi tienda
         </TabsTrigger>
@@ -16,9 +22,9 @@ export default () => {
         className='max-w-3xl mx-auto py-9 flex flex-col items-center gap-4 text-start'
       >
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             1. Inicia sesión con tu cuenta de Twitch.
-          </h3>
+          </H3>
           <img
             src='/images/login.webp'
             alt='login'
@@ -26,9 +32,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             2. Crea una tienda.
-          </h3>
+          </H3>
           <p>
             Ve al <a href='/panel' className='text-mango-400 hover:text-mango-500'>Streamer Panel</a> y selecciona <b>Crear tienda</b>
           </p>
@@ -39,9 +45,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             3. Personaliza tu tienda.
-          </h3>
+          </H3>
           <p>
             En la sección <a href='/panel/store' className='text-mango-400 hover:text-mango-500'>Tienda</a> podrás personalizar tu tienda y moneda.
           </p>
@@ -52,9 +58,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             4. Agrega productos.
-          </h3>
+          </H3>
           <p>
             En la sección <a href='/panel/products' className='text-mango-400 hover:text-mango-500'>Productos</a> podrás agregar y modificar productos en tu tienda.
           </p>
@@ -65,9 +71,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             5. Canjeos.
-          </h3>
+          </H3>
           <p>
             En la sección <a href='/panel/exchanges' className='text-mango-400 hover:text-mango-500'>Canjeos</a> podrás administrar los canjeos recibidos.
           </p>
@@ -78,9 +84,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             6. ¿Cómo consiguen monedas tus espectadores?
-          </h3>
+          </H3>
           <p>
             En el apartado "Servicio de puntos x monedas" debes proporcionar los permisos necesarios para realizar operaciones en las recompensas de tu canal.
           </p>
@@ -117,9 +123,9 @@ export default () => {
         className='max-w-3xl mx-auto py-9 flex flex-col items-center gap-4 text-start'
       >
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             1. Inicia sesión con tu cuenta de Twitch.
-          </h3>
+          </H3>
           <img
             src='/images/login.webp'
             alt='login'
@@ -127,9 +133,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             2. Canjea tus puntos por monedas.
-          </h3>
+          </H3>
           <p>
             En el canal del streamer, ve a la sección de recompensas y selecciona la recompensa que quieres canjear por monedas.
           </p>
@@ -140,9 +146,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             3. Ve a la tienda del streamer que quieres canjear.
-          </h3>
+          </H3>
           <img
             src='/images/search-store.webp'
             alt='search store'
@@ -150,9 +156,9 @@ export default () => {
           />
         </section>
         <section>
-          <h3 className='mb-2 text-2xl font-bold'>
+          <H3>
             4. Mira los productos disponibles y canjea.
-          </h3>
+          </H3>
           <p>
             En la sección de productos podrás ver los productos que están disponibles para canjear.
           </p>

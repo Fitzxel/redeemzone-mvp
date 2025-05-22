@@ -16,7 +16,7 @@ interface Props {
 
 export default ({ pathname, items }: Props) => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList>
         {
           items?.map((item) => (

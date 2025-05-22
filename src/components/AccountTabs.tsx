@@ -4,7 +4,7 @@ import ExchangesList from '@/components/ExchangesList.tsx'
 
 export default () => {
   return (
-    <Tabs defaultValue='contact'>
+    <Tabs defaultValue='contact' className='px-4'>
       <TabsList className='w-full max-w-3xl mx-auto'>
         <TabsTrigger value='contact'>
           Contacto

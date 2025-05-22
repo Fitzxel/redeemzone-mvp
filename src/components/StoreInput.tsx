@@ -6,9 +6,10 @@ import { buttonVariants } from '@/components/ui/button'
 interface Props {
   className?: string
   closeOnScroll?: boolean
+  overlayMode?: boolean
 }
 
-export default ({ className, closeOnScroll, ...props }: Props) => {
+export default ({ className, closeOnScroll, overlayMode, ...props }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState('')
   const [focused, setFocused] = useState(false)
@@ -35,6 +36,7 @@ export default ({ className, closeOnScroll, ...props }: Props) => {
       .slice(0, 5)
   }, [value, stores])
   const [clickItem, setClickItem] = useState(false)
+  const listboxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let tabNavigation = false
@@ -72,6 +74,8 @@ export default ({ className, closeOnScroll, ...props }: Props) => {
   useEffect(() => {
     if (!focused) return
 
+    setListBoxStyle()
+
     const keyEvent = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault()
@@ -107,23 +111,30 @@ export default ({ className, closeOnScroll, ...props }: Props) => {
     }
   }, [focused, listIndex, stores])
 
+  const setListBoxStyle = () => {
+    const listbox = listboxRef.current
+    const input = inputRef.current
+    if (!listbox || !input) return
+
+    listbox.style.top = `${input.getBoundingClientRect().top + input.clientHeight}px`
+    listbox.style.left = `${input.getBoundingClientRect().left}px`
+    listbox.style.width = `${input.clientWidth}px`
+  }
+
   return (
     <>
       <div
         className={cn(
           'fixed top-0 left-0 z-10 w-full h-full',
-          !focused && 'hidden'
+          !focused && 'hidden',
+          focused && overlayMode && 'bg-background/45 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none'
         )}
         onClick={() => setFocused(false)}
       >
         <div
+          ref={listboxRef}
           role='listbox'
           className='absolute w-full mt-2 flex flex-col bg-card text-card-foreground rounded-xl border shadow-md'
-          style={{
-            width: inputRef.current?.clientWidth,
-            top: (inputRef.current?.getBoundingClientRect().top || 0) + (inputRef.current?.clientHeight || 0),
-            left: inputRef.current?.getBoundingClientRect().left,
-          }}
         >
           {storesResult.map((store, i) => (
             <a
@@ -170,7 +181,8 @@ export default ({ className, closeOnScroll, ...props }: Props) => {
         autoCorrect='off'
         className={cn(
           'relative z-10',
-          className
+          className,
+          focused && overlayMode && 'absolute md:relative w-[calc(100%-2rem)] md:w-full'
         )}
         {...props}
       />

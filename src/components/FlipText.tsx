@@ -35,7 +35,7 @@ export default ({
   return (
     <div className={`relative w-full h-10 overflow-hidden animate-fade-in-up ${className}`}>
       <div
-        className={`absolute w-full transition-all duration-800 ${
+        className={`absolute w-full h-full transition-all duration-800 ${
           isFlipping ? 'opacity-0 -translate-y-full transform-gpu rotateX-90' : 'opacity-100'
         }`}
         style={{
@@ -43,7 +43,7 @@ export default ({
           transform: isFlipping ? 'rotateX(-90deg) translateY(-100%)' : 'rotateX(0) translateY(0)',
         }}
       >
-        <div className='flex items-center justify-center h-10'>
+        <div className='flex items-center justify-center h-full'>
           {texts[currentIndex]}
         </div>
       </div>
